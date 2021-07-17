@@ -1,0 +1,6 @@
+{
+	"appId": "io.ionic.starter",
+	"appName": "read-comics",
+	"webDir": "dist",
+	"bundledWebRuntime": false
+}

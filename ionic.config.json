@@ -1,0 +1,7 @@
+{
+  "name": "read-comics",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "vue"
+}
