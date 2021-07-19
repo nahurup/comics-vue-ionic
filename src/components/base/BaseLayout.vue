@@ -5,7 +5,13 @@
                 <ion-buttons slot="start">
                     <ion-back-button :default-href="pageDefaultBackLink"></ion-back-button>
                 </ion-buttons>
-                <ion-title>{{ pageTitle }}</ion-title>
+                <ion-title>
+                   {{ pageTitle }}</ion-title>
+                <ion-buttons slot="end">
+                    <ion-item :router-link="`/search`">
+                        <ion-icon name="search-outline"></ion-icon>
+                    </ion-item>
+                </ion-buttons>
             </ion-toolbar>
         </ion-header>
         <ion-content>
@@ -15,7 +21,8 @@
 </template>
 
 <script>
-import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonBackButton, IonButtons } from '@ionic/vue'
+import { IonPage, IonHeader, IonToolbar, IonTitle, IonContent, IonBackButton, IonButtons, IonIcon, IonItem } from '@ionic/vue'
+import {bookOutline} from 'ionicons/icons';
 
 export default {
     props: ['pageTitle', "pageDefaultBackLink"],
@@ -26,7 +33,14 @@ export default {
         IonTitle,
         IonContent,
         IonBackButton,
-        IonButtons
+        IonButtons,
+        IonIcon,
+        IonItem
+    },
+    data() {
+        return {
+            bookOutline
+        };
     }
 }
 </script>

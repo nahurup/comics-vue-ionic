@@ -13,6 +13,10 @@ const routes = [
   {
     path: '/issue/:name_url?/:issue_number?',
     component: () => import('../pages/IssuePage.vue')
+  },
+  {
+    path: '/search',
+    component: () => import('../pages/SearchPage.vue')
   }
 ]
 

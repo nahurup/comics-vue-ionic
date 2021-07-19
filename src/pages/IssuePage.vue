@@ -6,11 +6,11 @@
                 :src=page></ion-img>
 
             <div class="center">
-                <ion-button v-if="current_issue >= 2" id="btn_prev" color="light">
+                <ion-button v-if="current_issue >= 2" v-on:click="getIssue(current_issue-1)" id="btn_prev" color="light">
                     <ion-icon :icon="caretBackOutline"></ion-icon>
                 </ion-button>
                 <ion-button id="page" color="tertiary" href="#">{{ current_issue }}/{{ max_issues }}</ion-button>
-                <ion-button v-if="current_issue < max_issues" id="btn_next" color="light">
+                <ion-button v-if="current_issue < max_issues" v-on:click="getIssue(current_issue+1)" id="btn_next" color="light">
                     <ion-icon :icon="caretForwardOutline"></ion-icon>
                 </ion-button>
             </div>
@@ -41,12 +41,13 @@ export default {
         };
     },
     methods: {
-        async getIssue() {
+        async getIssue(current = this.current_issue) {
             this.pages_list = [];
             
             try {
-                let response = await fetch("https://nahurup-comics-api.herokuapp.com/comic/"+this.name_url+"/"+this.current_issue);
+                let response = await fetch("https://nahurup-comics-api.herokuapp.com/comic/"+this.name_url+"/"+current);
                 this.pages_list = await response.json();
+                this.current_issue = current;
             } catch (error) {
                 console.log(error);
             }
