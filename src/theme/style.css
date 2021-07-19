@@ -1,0 +1,17 @@
+.comic-card {
+    width: 180px;
+}
+
+.overlay {
+    width: 100%;
+    position: absolute;
+    bottom: 0px;
+    padding: 6px;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.85), transparent);
+}
+
+.card-title {
+    font-weight: 600;
+    font-size: 14px;
+    color: #f2f2f2;
+}
