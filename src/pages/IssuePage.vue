@@ -1,9 +1,9 @@
 <template>
     <base-layout :page-title="`${comic_info.title} | #${current_issue}`" :page-default-back-link="`/comic/${name_url}`">
         <ion-content>
-            <ion-img v-for="page in pages_list"
+            <img v-for="page in pages_list"
                 v-bind:key="page"
-                :src=page></ion-img>
+                :src=page>
 
             <div class="center">
                 <ion-button v-if="current_issue >= 2" v-on:click="getIssue(current_issue-1)" id="btn_prev" color="light">
@@ -19,15 +19,14 @@
 </template>
 
 <script>
-import { IonButton, IonContent, IonIcon, IonImg } from '@ionic/vue'
+import { IonButton, IonContent, IonIcon } from '@ionic/vue'
 import {caretForwardOutline, caretBackOutline} from 'ionicons/icons';
 
 export default {
     components: {
         IonButton,
         IonContent,
-        IonIcon,
-        IonImg
+        IonIcon
     },
     data() {
         return {
