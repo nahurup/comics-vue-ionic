@@ -1,10 +1,9 @@
 import { createRouter, createWebHistory } from '@ionic/vue-router';
-import ComicsList from '../pages/ComicsList.vue'
 
 const routes = [
   {
-    path: '/',
-    component: ComicsList
+    path: '',
+    component: () => import('../pages/ComicsList.vue')
   },
   {
     path: '/comic/:name_url?',

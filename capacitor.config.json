@@ -1,6 +1,16 @@
 {
-	"appId": "io.ionic.starter",
-	"appName": "read-comics",
-	"webDir": "dist",
-	"bundledWebRuntime": false
+  "appId": "com.nahurup.readcomics",
+  "appName": "ReadComics",
+  "webDir": "dist",
+  "bundledWebRuntime": false,
+
+  "plugins": {
+    "SplashScreen": {
+      "launchShowDuration": 0
+    }
+  },
+  "android": {
+    "allowMixedContent": true
+  }
 }
+

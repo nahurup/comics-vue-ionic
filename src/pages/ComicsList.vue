@@ -50,6 +50,7 @@ export default {
     },
     methods: {
         async getData(page_number = 1) {
+            console.log("hola");
             this.comics = [];
             try {
                 let response = await fetch("https://nahurup-comics-api.herokuapp.com/page/"+page_number);
@@ -60,6 +61,7 @@ export default {
             }
         },
         async getMaxPages() {
+            console.log("hola");
             try {
                 let response = await fetch("https://nahurup-comics-api.herokuapp.com/pages_number");
                 this.max_pages = await response.json();
