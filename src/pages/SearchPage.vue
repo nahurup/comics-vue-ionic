@@ -1,5 +1,12 @@
 <template>
     <base-layout page-title="ReadComics" page-default-back-link="/">
+        <loading v-model:active="isLoading"
+                :can-cancel="true"
+                :on-cancel="onCancel"
+                :is-full-page="fullPage"
+                :background-color="loaderBackground"
+                :opacity="1"
+                :color="loadingIconColor"/>
         <ion-searchbar
         v-on:click="getInput()">
         </ion-searchbar>
@@ -9,7 +16,7 @@
                 <ion-card class="comic-card"
                 v-for="comic in comics"
                 v-bind:key="comic.name">
-                    <ion-item class="ion-no-padding" :router-link="`/comic/${comic.name_url}`">
+                    <ion-item class="ion-no-padding" :router-link="`/comic/${comic.name}`">
                         <ion-img :src="`https://readcomicsonline.ru/uploads/manga/${comic.name}/cover/cover_250x350.jpg`"></ion-img>
                         <div class="overlay">
                             <div class="card-title">{{ comic.title }}</div>
@@ -29,27 +36,37 @@
 </template>
 
 <script>
-import { IonGrid, IonRow, IonSearchbar } from '@ionic/vue'
+import { IonGrid, IonRow, IonSearchbar, IonItem } from '@ionic/vue';
+import Loading from 'vue-loading-overlay';
+import 'vue-loading-overlay/dist/vue-loading.css';
 
 export default {
     components: {
         IonGrid,
         IonRow,
-        IonSearchbar
+        IonSearchbar,
+        IonItem,
+        Loading
     },
     data() {
         return {
             comics: [],
             words: '',
             sin_resultados: false,
+            isLoading: false,
+            fullPage: false,
+            loaderBackground: "#121212",
+            loadingIconColor: "#FFFFFF"
         };
     },
     methods: {
         async getSearch(words_input) {
             this.comics = [];
+            this.isLoading = true;
             try {
                 let response = await fetch("https://nahurup-comics-api.herokuapp.com/search/"+words_input);
                 this.comics = await response.json();
+                this.isLoading = false;
                 if(this.comics.length > 0) {
                     this.sin_resultados = false;
                 }else{

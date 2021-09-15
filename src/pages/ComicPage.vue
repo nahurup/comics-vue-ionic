@@ -1,6 +1,12 @@
 <template>
     <base-layout page-title="ReadComics" page-default-back-link="/">
-
+        <loading v-model:active="isLoading"
+            :can-cancel="true"
+            :on-cancel="onCancel"
+            :is-full-page="fullPage"
+            :background-color="loaderBackground"
+            :opacity="1"
+            :color="loadingIconColor"/>
         <ion-card>
             <ion-card-header>
                 <ion-card-title>{{comic_info.title}}</ion-card-title>
@@ -42,7 +48,9 @@
 </template>
 
 <script>
-import { IonCard, IonItem, IonList, IonThumbnail } from '@ionic/vue'
+import { IonCard, IonItem, IonList, IonThumbnail } from '@ionic/vue';
+import Loading from 'vue-loading-overlay';
+import 'vue-loading-overlay/dist/vue-loading.css';
 
 export default {
     components: {
@@ -50,12 +58,17 @@ export default {
         IonItem,
         IonList,
         IonThumbnail,
+        Loading
     },
     data() {
         return {
             name_url: '',
             comic_info: [],
             issues_list : [],
+            isLoading: true,
+            fullPage: false,
+            loaderBackground: "#121212",
+            loadingIconColor: "#FFFFFF"
         };
     },
     methods: {
@@ -73,6 +86,7 @@ export default {
             try {
                 let response = await fetch("https://nahurup-comics-api.herokuapp.com/comic/issues_list/"+this.name_url);
                 this.issues_list = await response.json();
+                this.isLoading = false;
             } catch (error) {
                 console.log(error);
             }

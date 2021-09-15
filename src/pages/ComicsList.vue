@@ -1,5 +1,12 @@
 <template>
     <base-layout page-title="ReadComics">
+        <loading v-model:active="isLoading"
+                :can-cancel="true"
+                :on-cancel="onCancel"
+                :is-full-page="fullPage"
+                :background-color="loaderBackground"
+                :opacity="1"
+                :color="loadingIconColor"/>
         <ion-grid>
             <ion-row>
                 <ion-card class="comic-card"
@@ -30,6 +37,8 @@
 <script>
 import { IonGrid, IonRow, IonItem, IonButton, IonIcon } from '@ionic/vue'
 import {caretForwardOutline, caretBackOutline} from 'ionicons/icons';
+import Loading from 'vue-loading-overlay';
+import 'vue-loading-overlay/dist/vue-loading.css';
 
 export default {
     components: {
@@ -37,7 +46,8 @@ export default {
         IonRow,
         IonItem,
         IonButton,
-        IonIcon
+        IonIcon,
+        Loading
     },
     data() {
         return {
@@ -46,15 +56,20 @@ export default {
             comics: [],
             max_pages: '',
             current_page: '',
+            isLoading: true,
+            fullPage: false,
+            loaderBackground: "#121212",
+            loadingIconColor: "#FFFFFF"
         };
     },
     methods: {
         async getData(page_number = 1) {
-            console.log("hola");
+            this.isLoading = true;
             this.comics = [];
             try {
                 let response = await fetch("https://nahurup-comics-api.herokuapp.com/page/"+page_number);
-                this.comics = await response.json();
+                this.comics = await response.json()
+                this.isLoading = false;
                 this.current_page = page_number;
             } catch (error) {
                 console.log(error);

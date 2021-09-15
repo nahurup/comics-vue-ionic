@@ -1,5 +1,12 @@
 <template>
     <base-layout :page-title="`${comic_info.title} | #${current_issue}`" :page-default-back-link="`/comic/${name_url}`">
+        <loading v-model:active="isLoading"
+            :can-cancel="true"
+            :on-cancel="onCancel"
+            :is-full-page="fullPage"
+            :background-color="loaderBackground"
+            :opacity="1"
+            :color="loadingIconColor"/>
         <ion-content>
             <img v-for="page in pages_list"
                 v-bind:key="page"
@@ -19,14 +26,17 @@
 </template>
 
 <script>
-import { IonButton, IonContent, IonIcon } from '@ionic/vue'
+import { IonButton, IonContent, IonIcon } from '@ionic/vue';
 import {caretForwardOutline, caretBackOutline} from 'ionicons/icons';
+import Loading from 'vue-loading-overlay';
+import 'vue-loading-overlay/dist/vue-loading.css';
 
 export default {
     components: {
         IonButton,
         IonContent,
-        IonIcon
+        IonIcon,
+        Loading
     },
     data() {
         return {
@@ -37,16 +47,22 @@ export default {
             comic_info: [],
             max_issues: '',
             pages_list : [],
+            isLoading: true,
+            fullPage: false,
+            loaderBackground: "#121212",
+            loadingIconColor: "#FFFFFF"
         };
     },
     methods: {
         async getIssue(current = this.current_issue) {
+            this.isLoading = true;
             this.pages_list = [];
             
             try {
                 let response = await fetch("https://nahurup-comics-api.herokuapp.com/comic/"+this.name_url+"/"+current);
                 this.pages_list = await response.json();
                 this.current_issue = current;
+                this.isLoading = false;
             } catch (error) {
                 console.log(error);
             }
