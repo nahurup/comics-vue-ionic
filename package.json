@@ -20,6 +20,7 @@
     "@ionic/vue-router": "^5.4.0",
     "@vue/composition-api": "^1.0.2",
     "core-js": "^3.6.5",
+    "img-vuer": "^0.19.3",
     "ionicons": "^5.5.2",
     "vue": "^3.0.0-0",
     "vue-loading-overlay": "^4.0.4",

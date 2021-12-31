@@ -1,6 +1,7 @@
 <template>
-    <base-layout :page-title="`${comic_info.title} | #${current_issue}`" :page-default-back-link="`/comic/${name_url}`">
-        <loading v-model:active="isLoading"
+    <ion-page>
+        <ion-content>
+                    <loading v-model:active="isLoading"
             :can-cancel="true"
             :on-cancel="onCancel"
             :is-full-page="fullPage"
@@ -22,7 +23,9 @@
                 </ion-button>
             </div>
         </ion-content>
-    </base-layout>
+        </ion-content>
+    </ion-page>
+
 </template>
 
 <script>
@@ -30,7 +33,6 @@ import { IonButton, IonContent, IonIcon } from '@ionic/vue';
 import {caretForwardOutline, caretBackOutline} from 'ionicons/icons';
 import Loading from 'vue-loading-overlay';
 import 'vue-loading-overlay/dist/vue-loading.css';
-
 export default {
     components: {
         IonButton,
@@ -84,6 +86,7 @@ export default {
     created: function() {
         this.getMaxIssues();
         this.getIssue();
+        console.log(document.getElementsByTagName("ion-header"));
     },
 }
 </script>
