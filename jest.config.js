@@ -3,5 +3,8 @@ module.exports = {
   transform: {
     '^.+\\.vue$': 'vue-jest'
   },
+  devServer: {
+    disableHostCheck: true,
+  },
   transformIgnorePatterns: ['/node_modules/(?!@ionic/vue|@ionic/vue-router)']
 }
